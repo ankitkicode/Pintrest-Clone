@@ -93,23 +93,198 @@ router.get('/viewpost/:postId', isLoggedIn, async (req, res) => {
 
   try {
     const user = await userModel.findOne({ username: req.session.passport.user }).populate("posts");
-    // console.log(user)
+    // console.log(user);
     const postId = req.params.postId;
     const post = await postModel.findById(postId);
-    // console.log(user)
     console.log(post)
-    const postuser= await userModel.findById(post.user._id);
-    // console.log(postuser)
+    const postuser = await userModel.findById(post.user._id);
+    // console.log(postuser);
     if (!post) {
       return res.status(404).render('not-found'); // Handle not found scenario
     }
-
-    res.render('viewpost',{post,user,postuser});
+      // Check if the logged-in user is already following the target user
+      const loggedUserId = req.user.id;
+      const loggedUser = await userModel.findById(loggedUserId);
+      const userFollowsLoggedUser = loggedUser.following.includes(postId);
+      console.log(userFollowsLoggedUser);
+    res.render('viewpost',{post,user,postuser,userFollowsLoggedUser});
   } catch (error) {
     console.error(error);
     res.render('error');
   }
 });
+
+router.get('/profile/viewpost/:postId', isLoggedIn, async (req, res) => {
+
+  try {
+    const user = await userModel.findOne({ username: req.session.passport.user }).populate("posts");
+    // console.log(user);
+    const postId = req.params.postId;
+    const post = await postModel.findById(postId);
+    // console.log(user)
+    const postuser = await userModel.findById(post.user._id);
+    // console.log(postuser);
+    if (!post) {
+      return res.status(404).render('not-found'); // Handle not found scenario
+    }
+      // Check if the logged-in user is already following the target user
+      const loggedUserId = req.user.id;
+      const loggedUser = await userModel.findById(loggedUserId);
+      const userFollowsLoggedUser = loggedUser.following.includes(postId);
+      console.log(userFollowsLoggedUser);
+    res.render('profileViewPost',{post,user,postuser,userFollowsLoggedUser});
+  } catch (error) {
+    console.error(error);
+    res.render('error');
+  }
+});
+
+router.get('/profile/:postUserId', isLoggedIn, async function(req, res, next) {
+  
+  
+
+  try {
+
+    const user = await userModel.findById(req.user.id); 
+    const postUserId= req.params.postUserId;
+    const postUser = await userModel.findById(postUserId);
+    const postUserAllPost = await postModel.find({ user: postUserId});
+
+    const userId = req.params.postUserId;
+    const userparams = await userModel.findById(userId);
+    console.log(userparams)
+    console.log(postUser)
+
+    if (!user) {
+      return res.status(404).render('not-found'); // Handle not found scenario
+    }
+
+    // Check if the logged-in user is already following the target user
+    const loggedUserId = req.user.id;
+    const loggedUser = await userModel.findById(loggedUserId);
+    const userFollowsLoggedUser = loggedUser.following.includes(userId);
+
+    res.render('postUserprofile', { userparams, userFollowsLoggedUser,user,postUser,postUserAllPost });
+  } catch (error) {
+    console.error(error);
+    res.render('error');
+  }
+});
+
+
+// Endpoint to toggle follow status
+router.post('/api/togglefollow/:userId', isLoggedIn, async (req, res) => {
+  try {
+    const userIdToToggle = req.params.userId;
+    const loggedUserId = req.user.id;
+
+    // Find the logged-in user
+    const loggedUser = await userModel.findById(loggedUserId);
+
+    // Check if the user is already following
+    const isFollowing = loggedUser.following.includes(userIdToToggle);
+
+    // Toggle follow status
+    if (isFollowing) {
+      // Unfollow
+      loggedUser.following.pull(userIdToToggle);
+
+      // Remove logged user from the follower's followers list
+      const userToUnfollow = await userModel.findById(userIdToToggle);
+      userToUnfollow.followers.pull(loggedUserId);
+      await userToUnfollow.save();
+    } else {
+      // Follow
+      loggedUser.following.push(userIdToToggle);
+
+      // Add logged user to the followed user's followers list
+      const userToFollow = await userModel.findById(userIdToToggle);
+      userToFollow.followers.push(loggedUserId);
+      await userToFollow.save();
+    }
+
+    await loggedUser.save();
+
+    res.json({ success: true, isFollowing: !isFollowing });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+// Endpoint to follow a user
+
+//Endpoints start likes 
+
+// Endpoint to toggle like status for a post
+router.post('/api/togglelike/:postId', isLoggedIn, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+    const userId = req.user.id;
+
+    // Find the post
+    const post = await postModel.findById(postId);
+
+    // Check if the user has already liked the post
+    const isLiked = post.likes.includes(userId);
+
+    if (isLiked) {
+      // Unlike the post
+      post.likes = post.likes.filter(likedUserId => likedUserId.toString() !== userId);
+    } else {
+      // Like the post
+      post.likes.push(userId);
+    }
+
+    // Save the updated post
+    await post.save();
+
+    // Send response with updated like status and count
+    res.json({
+      success: true,
+      isLiked: !isLiked,
+      likeCount: post.likes.length,
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    res.json({ success: false, error: 'Failed to toggle like status' });
+  }
+});
+
+//delete post logic
+router.post('/api/deletepost/:postId',isLoggedIn, async (req, res) => {
+  const postId = req.params.postId;
+
+  try {
+    const post = await postModel.findById(postId);
+    // console.log(post.user.toString())
+
+    if (!post) {
+      return res.status(404).json({ success: false, message: 'Post not found' });
+    }
+
+    // Check if the logged-in user is the owner of the post
+    const loggedInUserId = req.user._id;
+    // console.log(loggedInUserId.toString())
+
+    if (post.user.toString() !== loggedInUserId.toString()) {
+      return res.status(403).json({ success: false, message: 'Unauthorized' });
+    }
+
+    await postModel.findByIdAndDelete(postId);
+
+    res.json({ success: true, message: 'Post deleted successfully', redirect: '/profile' });
+  } catch (error) {
+    console.error('Error deleting post:', error);
+    res.status(500).json({ success: false, message: 'Failed to delete post' });
+  }
+});
+
+
+
+
+
+
+
 router.get('/home', isLoggedIn, async (req, res) => {
   try {
     const user = await userModel.findOne({ username: req.session.passport.user }).populate("posts");
@@ -124,7 +299,7 @@ router.get('/home', isLoggedIn, async (req, res) => {
 });
 router.get('/profile',isLoggedIn,async function(req, res, next) {
   const user= await userModel.findOne({username:req.session.passport.user}).populate("posts")
-  // console.log(user)
+  // console.log(user);
   res.render('profile',{user});
 });
 

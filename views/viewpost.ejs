@@ -1,568 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
-    <title>Viewpost</title>
-    <!-- Latest compiled and minified CSS -->
-    <style>
-      * {
-        outline: none;
-      }
-      body {
-        overflow-x: hidden;
-        margin: 0px;
-        padding: 0px;
-        font-family: arial;
-      }
 
-      .container1 {
-        /* max-width: 500px; */
-        margin: 0 auto;
-        padding: 20px;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
+  <title>Viewpost</title>
+  <!-- Latest compiled and minified CSS -->
+  <style>
+    * {
+      outline: none;
+    }
 
-      .card {
-        background-color: transparent;
-        border-radius: 5px;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
+    body {
+      overflow-x: hidden;
+      margin: 0px;
+      padding: 0px;
+      font-family: arial;
+    }
 
-      .profile-picture {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        /* overflow: hidden; */
-        margin: 0 auto 20px;
-        position: relative;
-      }
+    .container1 {
+      /* max-width: 500px; */
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-      .profile-picture img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-        box-shadow: 3px 3px 3px #acabab;
-      }
-      #editicon {
-        padding: 5px 6px;
-        background-color: #dadada;
-        border-radius: 50%;
-        position: absolute;
-        bottom: 3%;
-        right: 3%;
-        font-size: 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
+    .card {
+      background-color: transparent;
+      border-radius: 5px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-picture {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      /* overflow: hidden; */
+      margin: 0 auto 20px;
+      position: relative;
+    }
+
+    .profile-picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 3px 3px 3px #acabab;
+    }
+
+    #editicon {
+      padding: 5px 6px;
+      background-color: #dadada;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 3%;
+      right: 3%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .name {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .username {
+      font-size: 18px;
+      color: #777;
+      margin: 10px 0;
+    }
+
+    .tagline,
+    .description {
+      color: #555;
+      margin: 10px 0;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    /*MENU*/
+    .menu {
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      font-weight: bold;
+    }
+
+    .menu .logo {
+      width: 25px;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
+    .menu .logo:hover {
+      background: #eeeeee;
+    }
+
+    .menu .home {
+      color: #fff;
+      background: #000000;
+      padding: 12px 25px;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 40px;
+      margin: 0px 5px;
+    }
+
+    .menu .search-bar {
+      width: 100%;
+      margin: 0px 5px;
+      padding: 12px 35px;
+      border-radius: 40px;
+      outline: none;
+      position: relative;
+      background-color: #efefef;
+      font-size: 15px;
+      background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+      background-size: 21px;
+      background-repeat: no-repeat;
+      background-position: center left;
+      background-position: 10px;
+      color: gray;
+      border: 4px solid transparent;
+    }
+
+    .menu .search-bar:hover {
+      background-color: #3333;
+    }
+
+    .menu .search-bar:focus {
+      border: 4px solid #7bb5f0;
+      padding: 12px 20px;
+      background-image: none;
+    }
+
+    .menu .search-bar::placeholder {
+      user-select: none;
+    }
+
+    .icon-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .icon-container .icon {
+      width: 25px;
+      /* height: 25px; */
+      border-radius: 50%;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .pp {
+      width: 38px;
+      height: 35px;
+    }
+
+    .icon-container .icon:hover {
+      background-color: #eeeeee;
+    }
+
+    .icon-container .btn {
+      width: 14px;
+      padding: 5px;
+    }
+
+    .focus-bar {
+      width: 250px;
+      height: 350px;
+      border-radius: 15px;
+      background: #fff;
+      border: 2px solid #3333;
+      position: absolute;
+      top: 40px;
+      /*50px*/
+      left: -90px;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      user-select: none;
+      z-index: 99;
+    }
+
+    .bell:focus+.message+.pp+.btn+.bell-bar,
+    .bell-bar:focus {
+      visibility: visible;
+      opacity: 1;
+      top: 50px;
+    }
+
+    .message:focus+.pp+.btn+.bell-bar+.message-bar,
+    .message-bar:focus {
+      visibility: visible;
+      opacity: 1;
+      top: 50px;
+    }
+
+    .pp:focus+.btn+.bell-bar+.message-bar+.pp-bar,
+    .pp-bar:focus {
+      visibility: visible;
+      opacity: 1;
+      top: 50px;
+    }
+
+    .btn:focus+.bell-bar+.message-bar+.pp-bar+.btn-bar,
+    .btn-bar:focus {
+      visibility: visible;
+      opacity: 1;
+      top: 50px;
+    }
+
+    .pp-bar a {
+      text-decoration: none;
+      padding: 5px 15px;
+      border: 2px solid #161b22;
+      color: #161b22;
+      border-radius: 5px;
+    }
+
+    .pp-bar {
+      flex-direction: column;
+    }
+
+    .pp-bar img {
+      padding: 5px;
+      width: 150px;
+      height: 150px;
+      background-color: red;
+      width: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .pp-bar a:hover {
+      background: #161b22;
+      color: white;
+    }
+
+    /*MINI SEARCH BAR*/
+    #two {
+      display: none;
+      padding: 15px;
+    }
+
+    .responsive-search-bar {
+      max-width: 100%;
+      padding: 40px 10px;
+      text-align: center;
+      border-radius: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      top: -300px;
+      transition: all 0.3s;
+      overflow: hidden;
+      display: none;
+      background: #fff;
+      box-shadow: 0px 0px 2px 0px #333;
+      margin: 0px 5px;
+      z-index: 99;
+    }
+
+    .responsive-search-bar input {
+      width: 100%;
+      height: 35px;
+      outline: none;
+      border-radius: 40px;
+      border: 4px solid transparent;
+      background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+      background-size: 21px;
+      background-repeat: no-repeat;
+      background-position: center left;
+      background-position: 10px;
+      padding: 0px 15px 0px 35px;
+      background-color: #efefef;
+    }
+
+    .responsive-search-bar input:focus {
+      border: 4px solid #7bb5f0;
+    }
+
+    .responsive-search-bar p {
+      font-size: 11px;
+      padding: 11px;
+      margin-left: 5px;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+      position: absolute;
+      top: -12px;
+      right: -1px;
+      transition: all 0.3s;
+    }
+
+    .responsive-search-bar p:hover {
+      background: #eeeeee;
+      transform: rotate(-180deg);
+    }
+
+    .container {
+      height: 88.5vh;
+      width: 100%;
+      /* background-color: red; */
+      /* padding: 10px 40px; */
+      display: flex;
+      align-self: center;
+      justify-content: center;
+    }
+
+    .box-left {
+      border-top-left-radius: 50px;
+      border-bottom-left-radius: 50px;
+      height: 98%;
+      width: 45%;
+      /* box-shadow:0px 0px 5px 7px #ebeaea; */
+      /* background-color: #007bff; */
+    }
+
+    .box-right {
+      /* padding: 20px;  */
+      border-top-right-radius: 50px;
+      border-bottom-right-radius: 50px;
+      height: 98%;
+      width: 45%;
+      /* background-color: #77c60a; */
+    }
+
+    .comments {
+      height: 200px;
+      width: 100%;
+    }
+
+    .center {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      margin-top: 25px;
+    }
+
+    #profilepic {
+      height: 65px;
+      width: 65px;
+      color: #000;
+      background-color: rgb(225, 225, 225);
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    #profilepic1 {
+      height: 55px;
+      width: 55px;
+      color: #000;
+      background-color: rgb(225, 225, 225);
+      border-radius: 50%;
+      overflow: hidden;
+      margin-left: 10px;
+    }
+
+    #unfollowButton {
+      letter-spacing: 1px;
+      padding: 12px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: rgb(211, 210, 210);
+      color: #000000;
+      border-radius: 50px;
+      border: none;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    #followButton {
+      letter-spacing: 1px;
+      padding: 12px 15px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: rgb(255, 0, 0);
+      color: #ffffff;
+      border-radius: 50px;
+      border: none;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .likes{
+      font-size: 20px;
+
+    }
+    .like-button{
+      background-color: transparent;
+      border: none;
+      font-size: 25px;
+    }
+    .like-button i{
+      font-size: 25px;
+      font-weight: 600;
+     
+    }
+    .like-button .red{
+      color: red !important;
+    }
+
+
+    @media screen and (max-width: 550px) {
+      .menu {
         justify-content: center;
       }
 
-      .name {
-        font-size: 24px;
-        margin: 0;
-      }
-
-      .username {
-        font-size: 18px;
-        color: #777;
-        margin: 10px 0;
-      }
-
-      .tagline,
-      .description {
-        color: #555;
-        margin: 10px 0;
-      }
-
-      .button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-      }
-
-      .button:hover {
-        background-color: #0056b3;
-      }
-
-      /*MENU*/
-      .menu {
-        max-width: 100%;
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        font-weight: bold;
-      }
-      .menu .logo {
-        width: 25px;
-        padding: 10px;
+      .menu .search-bar {
+        padding: 0px;
+        background-position: center center;
         cursor: pointer;
         border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        float: left;
       }
-      .menu .logo:hover {
-        background: #eeeeee;
-      }
-      .menu .home {
-        color: #fff;
-        background: #000000;
-        padding: 12px 25px;
-        cursor: pointer;
-        user-select: none;
-        border-radius: 40px;
-        margin: 0px 5px;
-      }
-      .menu .search-bar {
-        width: 100%;
-        margin: 0px 5px;
-        padding: 12px 35px;
-        border-radius: 40px;
-        outline: none;
-        position: relative;
-        background-color: #efefef;
-        font-size: 15px;
+
+      .menu .search-bar:focus {
+        padding: 0px;
+        border: 4px solid transparent;
         background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
         background-size: 21px;
         background-repeat: no-repeat;
-        background-position: center left;
-        background-position: 10px;
-        color: gray;
-        border: 4px solid transparent;
+        background-position: center center;
       }
-      .menu .search-bar:hover {
-        background-color: #3333;
-      }
-      .menu .search-bar:focus {
-        border: 4px solid #7bb5f0;
-        padding: 12px 20px;
-        background-image: none;
-      }
+
       .menu .search-bar::placeholder {
-        user-select: none;
+        opacity: 0;
       }
-      .icon-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
+
+      .home {
+        display: none;
       }
-      .icon-container .icon {
-        width: 25px;
-        /* height: 25px; */
-        border-radius: 50%;
-        cursor: pointer;
-        padding: 10px;
+
+      .focus-bar {
+        max-width: 100%;
+        margin: 0px 15px;
+        left: -40px;
       }
-      .pp {
-        width: 38px;
-        height: 35px;
+
+      .pp-bar img {
+        width: 80%;
       }
-      .icon-container .icon:hover {
+
+      #one {
+        display: none;
+      }
+
+      #two {
+        display: inline;
+        background-color: transparent;
+      }
+
+      #two:hover {
         background-color: #eeeeee;
       }
-      .icon-container .btn {
-        width: 14px;
-        padding: 5px;
-      }
-      .focus-bar {
-        width: 250px;
-        height: 350px;
-        border-radius: 15px;
-        background: #fff;
-        border: 2px solid #3333;
-        position: absolute;
-        top: 40px; /*50px*/
-        left: -90px;
-        visibility: hidden;
-        opacity: 0;
-        transition: all 0.3s;
+
+      .responsive-search-bar {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        user-select: none;
-        z-index: 99;
-      }
-      .bell:focus + .message + .pp + .btn + .bell-bar,
-      .bell-bar:focus {
-        visibility: visible;
-        opacity: 1;
-        top: 50px;
-      }
-      .message:focus + .pp + .btn + .bell-bar + .message-bar,
-      .message-bar:focus {
-        visibility: visible;
-        opacity: 1;
-        top: 50px;
-      }
-      .pp:focus + .btn + .bell-bar + .message-bar + .pp-bar,
-      .pp-bar:focus {
-        visibility: visible;
-        opacity: 1;
-        top: 50px;
-      }
-      .btn:focus + .bell-bar + .message-bar + .pp-bar + .btn-bar,
-      .btn-bar:focus {
-        visibility: visible;
-        opacity: 1;
-        top: 50px;
-      }
-      .pp-bar a {
-        text-decoration: none;
-        padding: 5px 15px;
-        border: 2px solid #161b22;
-        color: #161b22;
-        border-radius: 5px;
-      }
-      .pp-bar {
-        flex-direction: column;
-      }
-      .pp-bar img {
-        padding: 5px;
-        width: 150px;
-        height: 150px;
-        background-color: red;
-        width: 150px;
-        border-radius: 50%;
-        margin-bottom: 20px;
-        object-fit: cover;
-        object-position: center;
-      }
-      .pp-bar a:hover {
-        background: #161b22;
-        color: white;
       }
 
-      /*MINI SEARCH BAR*/
-      #two {
-        display: none;
-        padding: 15px;
-      }
-      .responsive-search-bar {
-        max-width: 100%;
-        padding: 40px 10px;
-        text-align: center;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        top: -300px;
-        transition: all 0.3s;
-        overflow: hidden;
-        display: none;
-        background: #fff;
-        box-shadow: 0px 0px 2px 0px #333;
-        margin: 0px 5px;
-        z-index: 99;
-      }
-      .responsive-search-bar input {
-        width: 100%;
-        height: 35px;
-        outline: none;
-        border-radius: 40px;
-        border: 4px solid transparent;
-        background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
-        background-size: 21px;
-        background-repeat: no-repeat;
-        background-position: center left;
-        background-position: 10px;
-        padding: 0px 15px 0px 35px;
-        background-color: #efefef;
-      }
-      .responsive-search-bar input:focus {
-        border: 4px solid #7bb5f0;
-      }
-      .responsive-search-bar p {
-        font-size: 11px;
-        padding: 11px;
-        margin-left: 5px;
+      .icon-container .icon {
+        width: 20px;
         border-radius: 50%;
         cursor: pointer;
-        user-select: none;
-        position: absolute;
-        top: -12px;
-        right: -1px;
-        transition: all 0.3s;
-      }
-      .responsive-search-bar p:hover {
-        background: #eeeeee;
-        transform: rotate(-180deg);
+        padding: 10px;
       }
 
       .container {
-        height: 88.5vh;
-        width: 100%;
-        /* background-color: red; */
-        /* padding: 10px 40px; */
-        display: flex;
-        align-self: center;
-        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        align-items: center;
+        /* gap: 10px; */
+        flex-direction: column;
       }
 
       .box-left {
-        border-top-left-radius: 50px;
-        border-bottom-left-radius: 50px;
-        height: 98%;
-        width: 45%;
-        /* box-shadow:0px 0px 5px 7px #ebeaea; */
+        /* position: relative; */
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 0px;
+        width: 90%;
         /* background-color: #007bff; */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
       }
+
       .box-right {
-        /* padding: 20px;  */
-        border-top-right-radius: 50px;
-        border-bottom-right-radius: 50px;
-        height: 98%;
-        width: 45%;
+        width: 90%;
+        height: 50%;
+        border-bottom-right-radius: 10px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 10px;
+        /* border-radius: 10px; */
         /* background-color: #77c60a; */
       }
 
-      .comments{
-        height: 200px;
-        width: 100%;
-      }
-      .center{
-        display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            margin-top: 25px;
-      }
-      #profilepic{
-              height: 65px;
-                width: 65px;
-                color: #000;
-                background-color: rgb(225, 225, 225);
-                border-radius: 50%;
-                overflow: hidden;
-      }
-      #profilepic1{
-            height: 55px;
-              width: 55px;
-              color: #000;
-              background-color: rgb(225, 225, 225);
-              border-radius: 50%;
-              overflow: hidden;
-              margin-left: 10px;
+      .left-icons {
+        gap: 1px;
       }
 
-      @media screen and (max-width: 550px) {
-        .menu {
-          justify-content: center;
-        }
-        .menu .search-bar {
-          padding: 0px;
-          background-position: center center;
-          cursor: pointer;
-          border-radius: 50%;
-          width: 30px;
-          height: 30px;
-          float: left;
-        }
-        .menu .search-bar:focus {
-          padding: 0px;
-          border: 4px solid transparent;
-          background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
-          background-size: 21px;
-          background-repeat: no-repeat;
-          background-position: center center;
-        }
-        .menu .search-bar::placeholder {
-          opacity: 0;
-        }
-        .home {
-          display: none;
-        }
-        .focus-bar {
-          max-width: 100%;
-          margin: 0px 15px;
-          left: -40px;
-        }
-        .pp-bar img {
-          width: 80%;
-        }
-        #one {
-          display: none;
-        }
-        #two {
-          display: inline;
-          background-color: transparent;
-        }
-        #two:hover {
-          background-color: #eeeeee;
-        }
-        .responsive-search-bar {
-          display: flex;
-        }
-        .icon-container .icon {
-          width: 20px;
-          border-radius: 50%;
-          cursor: pointer;
-          padding: 10px;
-        }
-        .container {
-          padding-top: 10px;
-          padding-bottom: 10px;
-          align-items: center;
-          /* gap: 10px; */
-          flex-direction: column;
-        }
-        .box-left {
-          /* position: relative; */
-          border-top-right-radius: 10px;
-          border-top-left-radius: 10px;
-          border-bottom-left-radius: 0px;
-          width: 90%;
-          /* background-color: #007bff; */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-        }
-
-        .box-right {
-          width: 90%;
-          height: 50%;
-          border-bottom-right-radius: 10px;
-          border-top-left-radius: 0px;
-          border-top-right-radius: 0px;
-          border-bottom-left-radius: 10px;
-          /* border-radius: 10px; */
-          /* background-color: #77c60a; */
-        }
-        .left-icons{
-          gap: 1px;
-        }
-        .comments{
+      .comments {
         height: 100px;
       }
-      .center{
-       
-            margin-top: 10px;
+
+      .center {
+
+        margin-top: 10px;
       }
-      #profilepic{
+
+      #profilepic {
         height: 45px;
-         width: 45px;   
+        width: 45px;
       }
-      .commentinput{
+
+      .commentinput {
         padding-bottom: 10px;
         /* margin-top: -30px; */
         /* background-color: red; */
       }
-      #profilepic1{
+
+      #profilepic1 {
         height: 45px;
         width: 45px;
       }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="menu">
-      <a href="/home"
-        ><img
-          draggable="false"
-          class="logo"
-          src="https://cdn1.iconfinder.com/data/icons/logotypes/32/pinterest-512.png"
-      /></a>
-      <a class="home" style="text-decoration: none" href="/home">Home</a>
-      <input id="one" type="text" class="search-bar" placeholder="Search" />
-      <button id="two" class="search-bar"></button>
-      <div class="icon-container">
-        <img
-          tabindex="1"
-          draggable="false"
-          class="icon bell"
-          src="https://i.hizliresim.com/rcvolcu.png"
-        />
-        <img
-          tabindex="1"
-          draggable="false"
-          class="icon message"
-          src="https://i.hizliresim.com/newumah.png"
-        />
-        <img
-          id="profile"
-          tabindex="1"
-          draggable="false"
-          class="icon pp"
-          src="/images/profilepic/<%= user.dp %>"
-        />
-        <img
-          tabindex="1"
-          draggable="false"
-          class="icon btn"
-          src="https://i.hizliresim.com/g15mqud.png"
-        />
+    }
+  </style>
+</head>
 
-        <!----FOCUS----->
-        <div tabindex="1" class="focus-bar bell-bar">Notification</div>
-        <!-------------------->
-        <div tabindex="1" class="focus-bar message-bar">Message</div>
-        <!-------------------->
-        <div tabindex="1" class="focus-bar pp-bar">
-          <img src="/images/profilepic/<%= user.dp %>" />
-          <a href="/profile">Go profile</a>
-        </div>
-        <!-- <a href="/profile" >Go profile</a></div> -->
-        <!-------------------->
-        <div tabindex="1" class="focus-bar btn-bar">
-          <a
-            style="
+<body>
+  <div class="menu">
+    <a href="/home"><img draggable="false" class="logo"
+        src="https://cdn1.iconfinder.com/data/icons/logotypes/32/pinterest-512.png" /></a>
+    <a class="home" style="text-decoration: none" href="/home">Home</a>
+    <input id="one" type="text" class="search-bar" placeholder="Search" />
+    <button id="two" class="search-bar"></button>
+    <div class="icon-container">
+      <img tabindex="1" draggable="false" class="icon bell" src="https://i.hizliresim.com/rcvolcu.png" />
+      <img tabindex="1" draggable="false" class="icon message" src="https://i.hizliresim.com/newumah.png" />
+      <img id="profile" tabindex="1" draggable="false" class="icon pp" src="/images/profilepic/<%= user.dp %>" />
+      <img tabindex="1" draggable="false" class="icon btn" src="https://i.hizliresim.com/g15mqud.png" />
+
+      <!----FOCUS----->
+      <div tabindex="1" class="focus-bar bell-bar">Notification</div>
+      <!-------------------->
+      <div tabindex="1" class="focus-bar message-bar">Message</div>
+      <!-------------------->
+      <div tabindex="1" class="focus-bar pp-bar">
+        <img src="/images/profilepic/<%= user.dp %>" />
+        <a href="/profile">Go profile</a>
+      </div>
+      <!-- <a href="/profile" >Go profile</a></div> -->
+      <!-------------------->
+      <div tabindex="1" class="focus-bar btn-bar">
+        <a style="
               padding: 10px 20px;
               background-color: red;
               color: #fff;
               border-radius: 9px;
-            "
-            href="/logout"
-            >Logout</a
-          >
-        </div>
+            " href="/logout">Logout</a>
       </div>
     </div>
-    <div class="container">
-      <div style="overflow: hidden" class="box-left">
-        <img
-          style="
+  </div>
+  <div class="container">
+    <div style="overflow: hidden" class="box-left">
+      <img style="
             height: 100%;
             width: 100%;
             object-fit: cover;
             object-position: center;
-          "
-          src="/images/uploads/<%=post.image%>"
-          alt=""
-        />
-      </div>
-      <div class="box-right">
-        <div
-          style="
+          " src="/images/uploads/<%=post.image%>" alt="" />
+    </div>
+    <div class="box-right">
+      <div style="
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 10px 20px;
             padding-top: 50px;
            
-          "
-          class="top"
-        >
-          <div  style="
+          " class="top">
+        <div style="
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 25px;
           font-size: 22px;
           font-weight: 600;
-          " 
-
-          class="left-icons"><i class="ri-more-fill"></i> <i class="ri-share-2-line"></i> <i class="ri-links-line"></i></div>
-          <div class="right-btn">
-            <button
-              style="
+          " class="left-icons"><i class="ri-more-fill"></i> <i class="ri-share-2-line"></i> <i
+            class="ri-links-line"></i></div>
+        <div class="right-btn">
+          <button style="
                 padding: 8px 15px;
                background-color: transparent;
                border: none;
@@ -570,14 +630,13 @@
                 font-weight: 600;
                 cursor: pointer;
                 margin-right: 10px;
-              "
-            >
-           <a style="text-decoration: none; color: #000;" href="/images/uploads/<%=post.image%>" download="/images/uploads/<%=post.image%>">
-            <i class="ri-download-line"></i>
-           </a>
-            </button>
-            <button
-              style="
+              ">
+            <a style="text-decoration: none; color: #000;" href="/images/uploads/<%=post.image%>"
+              download="/images/uploads/<%=post.image%>">
+              <i class="ri-download-line"></i>
+            </a>
+          </button>
+          <button style="
                 padding: 12px 15px;
                 color: #fff;
                 font-size: 14px;
@@ -587,57 +646,42 @@
                 border: none;
                 margin-right: 15px;
                 cursor: pointer; 
-              "
-            >
-              Save
-            </button>
-          </div>
+              ">
+            Save
+          </button>
         </div>
-        <div
-        
-          class="center"
-        >
-          <div
-            style="
+      </div>
+      <div class="center">
+        <a style="text-decoration: none; color: #000000;" href="/profile/<%= post.user._id %>">
+          <div style="
               display: flex;
               align-items: center;
               justify-content: space-between;
               gap: 10px;
-            "
-            class="left-prt"
-          >
-            <div
-            
-              id="profilepic"
-            >
-          <img style="height: 100%;width: 100%;  object-fit: cover;
+            " class="left-prt">
+            <div id="profilepic">
+              <img style="height: 100%;width: 100%;  object-fit: cover;
           object-position: center;" src="/images/profilepic/<%=postuser.dp %>" alt="" srcset="">
-          </div>
+            </div>
             <div class="profile-name">
-              <%=postuser.fullname %> <br />
-              <%=postuser.username %> 
-              </div>
+              <%=postuser.fullname %> <br>
+                <%=postuser.username %>
+                  <!-- <span>followers <%= postuser.followers.length %></span> -->
+            </div>
           </div>
-          <button
-            style="
-            letter-spacing: 1px;
-              padding: 12px 15px;
-              font-size: 14px;
-              font-weight: 600;
-              background-color: rgb(211, 210, 210);
-              color: #000000;
-              border-radius: 50px;
-              border: none;
-              margin-right: 10px;
-              cursor: pointer;       
-            "
-          >
-            Follow
+        </a>
+
+        <div class="social-btns">
+          <button id="followButton" data-user-follows-logged="<%= userFollowsLoggedUser ? 'true' : 'false' %>"
+            onclick="toggleFollow('<%= postuser._id %>')">
+            <%= userFollowsLoggedUser ? 'Unfollow' : 'Follow' %>
           </button>
+
         </div>
-        <div style="" class="comments">
-          <div  class="commentinput">
-            <!-- <form style="display: flex; gap: 10px;"  action="/post/addComment" method="POST">
+      </div>
+      <div style="" class="comments">
+        <div class="commentinput">
+          <!-- <form style="display: flex; gap: 10px;"  action="/post/addComment" method="POST">
               <div
               style="
                 height: 45px;
@@ -656,32 +700,42 @@
           </div>
               <h4  style="font-size: 20px; width:80%;"  >Write comment here. </h4>
             </form> -->
-           </div>
         </div>
-        <div class="bottom">
-          <div style="display: flex;
+      </div>
+      <div class="bottom">
+        <div style="display: flex;
           
           align-items: center;
           justify-content: space-between;
           padding: 0px 30px;
 
            " class="comment-like">
-            <h1 style="font-size: 22px;">1 comment</h1>
-            <a  style="text-decoration: none; font-size: 20px;" href="#">💖 21 ❤ </a>
-          </div>
-         <div  class="commentinput">
-          <form style="display: flex; gap: 10px;"  action="/" >
-            <div
-            style="
-           
-             
-            "
-            id="profilepic1"
-          >
-        <img style="height: 100%;width: 100%;  object-fit: cover;
-        object-position: center;" src="/images/profilepic/<%=postuser.dp %>" alt="" srcset="">
+          <h1 style="font-size: 22px;">1 comment</h1>
+          
+     <div class="likes">
+      <button
+      class="like-button"
+      data-post-id="<%= post._id %>"
+      data-is-liked="<%=post.likes.includes(post._id) %>"
+      onclick="toggleLike(this)"
+    >
+      <i class="ri-heart-line"></i> <!-- Outline heart icon -->
+    </button>
+    <span class="like-count"><%= post.likes.length %> Likes</span>
+     </div>
+
+   
+
+          <!-- <a style="text-decoration: none; font-size: 20px;" href="#">💖 21 ❤ </a> -->
         </div>
-            <input  style="font-size: 20px; width:70%; padding: 0px 20px; border-radius: 50px; border: 1px solid grey;" type="text" placeholder="Write comment here..">
+        <div class="commentinput">
+          <form style="display: flex; gap: 10px;" action="/">
+            <div id="profilepic1">
+              <img style="height: 100%;width: 100%;  object-fit: cover;
+        object-position: center;" src="/images/profilepic/<%=postuser.dp %>" alt="" srcset="">
+            </div>
+            <input style="font-size: 20px; width:70%; padding: 0px 20px; border-radius: 50px; border: 1px solid grey;"
+              type="text" placeholder="Write comment here..">
             <button style="background-color: red;
             color: #fff;
             font-size: 19px;
@@ -690,11 +744,77 @@
             border-radius: 50px;
             ">Send</button>
           </form>
-         </div>
         </div>
       </div>
     </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script>
+    // external-script.js
+    const followButton = document.getElementById('followButton');
+    const isUserFollowing = followButton.dataset.userFollowsLogged === 'true';
+
+    // Set the initial button text based on the follow status
+    followButton.innerText = isUserFollowing ? 'Unfollow' : 'Follow';
+
+    async function toggleFollow(userId) {
+      try {
+        const response = await fetch(`/api/togglefollow/${userId}`, { method: 'POST' });
+        const data = await response.json();
+
+        if (data.success) {
+          // Toggle button text on success
+          followButton.innerText = data.isFollowing ? 'Unfollow' : 'Follow';
+        } else {
+          console.error('Failed to toggle follow status');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+
+
+    //likes logic here!!
+    function toggleLike(button){
+      const postId = button.dataset.postId;
+      // console.log("clicked"+postId)
+      const isLiked = button.dataset.isLiked === 'true';
+
+      axios.post(`/api/togglelike/${postId}`)
+      .then(response => {
+        if (response.data.success) {
+          const likeCountSpan = button.nextElementSibling;
+          const likeIcon = button.querySelector('i');
+
+          // Update the like count
+          likeCountSpan.innerText = `${response.data.likeCount} Likes`;
+
+          // Toggle the like icon's color
+          if (response.data.isLiked) {
+            likeIcon.classList.remove('ri-heart-line'); // Remove outline heart
+            likeIcon.classList.add('ri-heart-fill');
+            likeIcon.classList.add('red');
+            // likeIcon.style.backgroundColor= "red"; // Add filled heart
+          } else {
+            likeIcon.classList.remove('red');
+            likeIcon.classList.remove('ri-heart-fill'); // Remove filled heart
+            likeIcon.classList.add('ri-heart-line'); // Add outline heart
+          }
+
+          // Update the data attribute for future clicks
+          button.dataset.isLiked = !isLiked;
+        } else {
+          console.error('Failed to toggle like status');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
    
-    
-  </body>
+  </script>
+</body>
+
 </html>

@@ -555,8 +555,10 @@ justify-content: center;
            <a href="/viewpost/<%= post._id%>"> <img class="foto" src="./images/uploads/<%= post.image%>"></a>
             <!-- <p class="content">Follow me</p> -->
             <br><br>
-            <img class="user" id="profile" src="./images/profilepic/<%=post.user.dp %>"> <br> 
-            <a class="username"> <h3  style="margin-top: 1px; color: #000000;"><%= post.user.fullname %>.</h3> <br><p  style="margin-top: -30px;"><%= post.user.username %></p> </a>
+            <a href="/profile/<%= post.user._id %>">
+              <img class="user" id="profile" src="./images/profilepic/<%=post.user.dp %>"> <br> 
+            <a href="/profile/<%= post.user._id %>" class="username"> <h3  style="margin-top: 1px; color: #000000;"><%= post.user.fullname %>.</h3> <br><p  style="margin-top: -30px;"><%= post.user.username %></p> </a>
+            </a>
             <div class="hover-zone">
               <div class="top-bar">
                 <p>Profile ⌵</p>

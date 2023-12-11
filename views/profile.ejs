@@ -575,7 +575,7 @@ justify-content: center;
           </div>
           <h2 class="name"><%= user.fullname %></h2>
           <h3 class="username"><%= user.username %></h3>
-          <p class="tagline">Keep going.</p>
+          <p class="tagline">Followers <%=user.followers.length %> & Folowing <%=user.following.length %></p>
           <p class="description">Masih belajar CSS dan HTML.</p>
           <a href="/editprofile" style="background-color: #cf0808;" class="button">Edit Profile</a>
           <a id="postbtn"  style="background-color: #cf0808;" class="button">Create Post</a>
@@ -594,7 +594,7 @@ justify-content: center;
 
         <% user.posts.forEach(function(post){ %>
           <div class="window">
-           <a href="/viewpost/<%= post._id%>"> <img class="foto" src="./images/uploads/<%= post.image%>"></a>
+           <a href="/profile/viewpost/<%= post._id%>"> <img class="foto" src="./images/uploads/<%= post.image%>"></a>
             <!-- <p class="content">Follow me</p> -->
             <br><br>
             <img class="user" id="profile" src="./images/profilepic/<%= user.dp %>"> <br> 
@@ -644,10 +644,6 @@ justify-content: center;
         document.querySelector("#profilepic").submit()
         // alert("hello")
     });
-
-
-    
-  
       </script>
 </body>
 </html>

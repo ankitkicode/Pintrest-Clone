@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -9,23 +9,25 @@ const postSchema = new mongoose.Schema({
   caption: {
     type: String,
   },
-  image:{
-    type:String,
+  image: {
+    type: String,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Assuming you have a User model
+    ref: "User", // Assuming you have a User model
   },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-  likes:{
-    type:Array,
-    default:[]
-  }
+  likes: [
+    { 
+     type: mongoose.Schema.Types.ObjectId,
+     ref: "User" 
+    }
+    ],
 });
 
-const Post = mongoose.model('Post', postSchema);
+const Post = mongoose.model("Post", postSchema);
 
 module.exports = Post;
